@@ -1,26 +1,195 @@
 @import "tailwindcss";
 
+/**
+ * Palette INSTN, relevée dans le CSS de instn.cea.fr avec les rôles que le site
+ * leur donne : #003367 sert d'encre et de fond de navigation, #0093c7 de couleur
+ * interactive (titres, boutons), #a0073f de couleur d'emphase.
+ *
+ * La structure des jetons et les formes suivent Better-Lise : nommage façon
+ * Material 3 (`primary` / `container` / `on-*`), rayons `lg` à `2xl`, anneaux de
+ * focus, et pile de polices système — Better-Lise ne charge aucune webfont.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Marque */
+  --instn-navy: #003367;
+  --instn-navy-dark: #001531;
+  --instn-blue: #0093c7;
+  --instn-blue-deep: #0b597f;
+  --instn-crimson: #a0073f;
+
+  /* Surfaces */
+  --background: #fafafa;
+  --surface: #ffffff;
+  --surface-sunken: #f2f5f8;
+
+  /* Texte */
+  --ink: var(--instn-navy);
+  --ink-strong: var(--instn-navy-dark);
+  --muted: #606e79;
+  --faint: #adb4b9;
+
+  /* Filets */
+  --rule: #dde4ea;
+  --rule-strong: #adb4b9;
+
+  /* Interactif */
+  --primary: var(--instn-navy);
+  --primary-hover: var(--instn-blue-deep);
+  --primary-container: #e3edf6;
+  --on-primary: #ffffff;
+
+  --accent: var(--instn-blue);
+  --accent-container: #e0f2fa;
+
+  --emphasis: var(--instn-crimson);
+  --emphasis-container: #fae8ee;
+
+  --ring: rgba(0, 147, 199, 0.28);
+
+  /**
+   * Couleurs par nature de séance.
+   *
+   * Volontairement indépendantes de la palette INSTN : celle-ci n'a qu'une
+   * teinte franche (le cramoisi) et deux bleus voisins, ce qui donnait une
+   * grille terne et peu lisible. Comme Better-Lise, on prend ici une palette
+   * catégorielle — fonds clairs saturés, texte de la même teinte en foncé — dont
+   * le seul travail est de distinguer sept natures d'un coup d'œil.
+   *
+   * L'identité INSTN reste portée par le chrome : bandeau, boutons, pastille du
+   * jour, écran de connexion.
+   */
+  --nature-cm-fill: #fde68a;
+  --nature-cm-text: #854d0e;
+  --nature-cm-edge: #f6cf5c;
+
+  --nature-td-fill: #a5cffd;
+  --nature-td-text: #1e40af;
+  --nature-td-edge: #7db2f4;
+
+  --nature-tp-fill: #a7f3d0;
+  --nature-tp-text: #065f46;
+  --nature-tp-edge: #6edcb0;
+
+  --nature-examen-fill: #fca5a5;
+  --nature-examen-text: #911616;
+  --nature-examen-edge: #f27979;
+
+  --nature-evenement-fill: #c9bcfd;
+  --nature-evenement-text: #5b21b6;
+  --nature-evenement-edge: #a894f5;
+
+  /* Le distanciel reste neutre : l'absence de couleur dit qu'on ne s'y déplace pas. */
+  --nature-distanciel-fill: #dde3ea;
+  --nature-distanciel-text: #334155;
+  --nature-distanciel-edge: #b8c2cf;
+
+  --nature-autre-fill: #e7e5e4;
+  --nature-autre-text: #44403c;
+  --nature-autre-edge: #c9c5c2;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+
+  --color-ink: var(--ink);
+  --color-ink-strong: var(--ink-strong);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary: var(--on-primary);
+
+  --color-accent: var(--accent);
+  --color-accent-container: var(--accent-container);
+
+  --color-emphasis: var(--emphasis);
+  --color-emphasis-container: var(--emphasis-container);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  /* Pile système, comme Better-Lise : aucun téléchargement de police. */
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.09em;
+  --text-eyebrow--font-weight: 700;
+
+  --text-display: clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-title: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.01em;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 140ms;
+  --duration-normal: 280ms;
+
+  /* Glissement de la grille au changement de semaine. `--origine` porte le sens
+     du geste et n'anime que `transform` et `opacity`. */
+  --animation-glisser: glisser var(--duration-normal) var(--ease-out-expo);
+}
+
+@keyframes glisser {
+  from {
+    transform: translateX(var(--origine, 0));
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Zones sûres iOS quand l'app tourne en mode standalone. */
+@utility pad-safe-top {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+
+@utility pad-safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
