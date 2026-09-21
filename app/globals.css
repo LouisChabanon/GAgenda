@@ -18,9 +18,9 @@
   --instn-crimson: #a0073f;
 
   /* Surfaces */
-  --background: #fafafa;
+  --background: #fbf9f6;
   --surface: #ffffff;
-  --surface-sunken: #f2f5f8;
+  --surface-sunken: #f5f2ed;
 
   /* Texte */
   --ink: var(--instn-navy);
