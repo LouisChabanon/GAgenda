@@ -12,7 +12,6 @@ interface CurrentTimeLineProps {
 }
 
 const MS_PER_MINUTE = 60_000;
-const JOURS_OUVRES = 5;
 
 /**
  * L'horloge est une source externe mutable : `useSyncExternalStore` est le
@@ -36,7 +35,8 @@ function getServerSnapshot(): number {
 
 /**
  * Repère de l'heure courante. Ne s'affiche que si aujourd'hui tombe dans la
- * semaine affichée et dans l'amplitude horaire de la grille.
+ * semaine affichée et dans l'amplitude horaire de la grille. Le trait ne barre
+ * que la colonne du jour : sur les autres, l'heure n'a rien à repérer.
  */
 export function CurrentTimeLine({ window, dayIndex }: CurrentTimeLineProps) {
   const minute = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
@@ -56,11 +56,16 @@ export function CurrentTimeLine({ window, dayIndex }: CurrentTimeLineProps) {
       <span className="tabular -ml-8 w-8 pr-1 text-right text-[0.5625rem] font-bold text-emphasis">
         {formatHeure(now)}
       </span>
-      <span className="h-px flex-1 bg-emphasis/40" />
-      <span
-        className="absolute size-1.5 rounded-full bg-emphasis"
-        style={{ left: `calc(${(dayIndex / JOURS_OUVRES) * 100}% - 3px)` }}
-      />
+      {/* Les cinq colonnes du corps de grille, pour caler le trait sur la même
+          largeur qu'une journée ; seule celle d'aujourd'hui est remplie. */}
+      <div className="grid flex-1 grid-cols-5">
+        <div className="flex items-center" style={{ gridColumnStart: dayIndex + 1 }}>
+          {/* La pastille déborde de 3px à gauche pour rester centrée sur le
+              séparateur de jour. */}
+          <span className="-ml-[3px] size-1.5 flex-none rounded-full bg-emphasis" />
+          <span className="h-px flex-1 bg-emphasis/40" />
+        </div>
+      </div>
     </div>
   );
 }
