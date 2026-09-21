@@ -187,9 +187,7 @@ export default function AgendaWrapper({
       </section>
 
       <footer className="flex flex-none items-center justify-between gap-4 px-1 pb-1">
-        <p className="text-[0.6875rem] text-faint">
-          {chargement ? "Chargement…" : `${seances?.length ?? 0} cours cette semaine`}
-        </p>
+        <p className="text-[0.6875rem] text-faint">{chargement ? "Chargement…" : null}</p>
         <form action={logoutAction}>
           <button
             type="submit"
