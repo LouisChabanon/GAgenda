@@ -20,10 +20,7 @@ export function Field({
 }: FieldProps) {
   return (
     <div className="flex flex-col gap-2">
-      <label
-        htmlFor={id}
-        className="text-eyebrow uppercase text-muted"
-      >
+      <label htmlFor={id} className="text-[0.8125rem] font-medium text-muted">
         {label}
       </label>
       <input
