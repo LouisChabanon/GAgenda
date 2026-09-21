@@ -61,7 +61,7 @@ function EdtErreur({ message }: { message: string }) {
     <main className="pad-safe-top pad-safe-bottom mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-6 px-6 py-12">
       <p className="text-eyebrow uppercase text-accent">Emploi du temps</p>
       <h1 className="text-display font-bold text-balance text-ink-strong">
-        Impossible de récupérer ton planning.
+        Impossible de récupérer le planning.
       </h1>
       <p role="alert" className="text-[0.9375rem] leading-relaxed text-muted">
         {message}
