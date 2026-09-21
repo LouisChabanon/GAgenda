@@ -22,7 +22,7 @@ export async function loginAction(
     return {
       status: "error",
       code: "INVALID_INPUT",
-      message: "Renseigne ton identifiant et ton mot de passe.",
+      message: "Identifiant et mot de passe sont obligatoires.",
     };
   }
 

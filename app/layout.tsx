@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: "%s · GAgenda",
   },
   description:
-    "L'emploi du temps du Génie Atomique, sur ton téléphone, sans passer par l'ENT.",
+    "L'emploi du temps du Génie Atomique, sur téléphone, sans passer par l'ENT.",
   applicationName: "GAgenda",
   appleWebApp: {
     capable: true,

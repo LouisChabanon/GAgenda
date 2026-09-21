@@ -39,7 +39,7 @@ export function LoginForm() {
           {state.message}
           {state.code === "ENT_CONFIG" && (
             <span className="mt-1 block text-muted">
-              Renseigne les variables ENT dans <code>.env.local</code>.
+              Renseigner les variables ENT dans <code>.env.local</code>.
             </span>
           )}
         </p>

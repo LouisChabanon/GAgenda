@@ -9,7 +9,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "GAgenda — emploi du temps Génie Atomique",
     short_name: "GAgenda",
     description:
-      "L'emploi du temps du Génie Atomique, sur ton téléphone, sans passer par l'ENT.",
+      "L'emploi du temps du Génie Atomique, sur téléphone, sans passer par l'ENT.",
     start_url: "/edt",
     scope: "/",
     display: "standalone",
